@@ -97,6 +97,8 @@ class ScanAdapter (
 
         return if (type == "name") {
             item.device.name != null && item.device.name.uppercase().contains(value.uppercase())
+        } else if (type == "address") {
+            item.device.address.startsWith(value)
         } else {
             item.rssi >= value.toInt()
         }

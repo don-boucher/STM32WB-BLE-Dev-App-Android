@@ -1,0 +1,104 @@
+syntax = "proto3";
+
+package asp.ref_public;
+option java_package="proto.aspinity.ref_public.pb";
+
+enum StatusCode {
+    OK = 0;
+    PROTOBUF_DECODE_ERROR = 1;
+    PROTOBUF_ENCODE_ERROR = 2;
+    INVALID_REQUEST_ERROR = 3;
+    COBS_ENCODE_ERROR = 4;
+    COBS_DECODE_ERROR = 5;
+}
+
+enum EventType {
+    EventType_Generic = 0;
+    Noise = 1;
+    Alexa = 2;
+    Voice = 3;
+    Disturber = 4;
+    Glassbreak = 5;
+    Alarm = 6;
+    T3 = 7;
+    T4 = 8;
+    Null = 9;
+    Light_Touch = 10;
+    Contact = 11;
+    Key_Scratch = 12;
+    Collision = 13;
+    Front_Proximity_Start = 14;
+    Front_Proximity_Stop = 15;
+    Rear_Proximity_Start = 16;
+    Rear_Proximity_Stop = 17;
+}
+
+message UpdateSerializedImageRequest {
+    bytes serialized_image = 1;
+}
+message UpdateSerializedImageResponse {}
+
+message EventLog {
+    EventType type = 1;
+    oneof time_oneof {
+        uint64 epoch = 2;
+        float seconds_since_startup = 3;
+    }
+}
+
+message GetEventCountRequest {
+    EventType type = 1;
+}
+
+message GetEventCountResponse {
+    uint32 count = 1;
+}
+
+message GetEventLogsRequest {}
+
+message GetEventLogsResponse {
+    repeated EventLog events = 1;
+    uint32 num_logs = 2;
+}
+
+message UpdateRadarRequest {
+    bool enable = 1;
+}
+
+message UpdateRadarResponse {}
+
+message UpdateLedsRequest {
+    bool enable = 1;
+}
+
+message UpdateLedsResponse {}
+
+service BoardService {
+    rpc UpdateSerializedImage (UpdateSerializedImageRequest) returns (UpdateSerializedImageResponse) {}
+    rpc GetEventLogs(GetEventLogsRequest) returns (GetEventLogsResponse) {}
+    rpc GetEventCount(GetEventCountRequest) returns (GetEventCountResponse) {}
+    rpc UpdateRadar(UpdateRadarRequest) returns (UpdateRadarResponse) {}
+    rpc UpdateLeds(UpdateLedsRequest) returns (UpdateLedsResponse) {}
+}
+
+message BoardRequest {
+    oneof body {
+        UpdateSerializedImageRequest update_serialized_image_request = 1;
+        GetEventLogsRequest get_event_logs_request = 2;
+        GetEventCountRequest get_event_count_request = 3;
+        UpdateRadarRequest update_radar_request = 4;
+        UpdateLedsRequest update_leds_request = 5;
+    }
+}
+
+message BoardResponse {
+    StatusCode status_code = 1;
+
+    oneof body {
+        UpdateSerializedImageResponse update_serialized_image_response = 2;
+        GetEventLogsResponse get_event_logs_response = 3;
+        GetEventCountResponse get_event_count_response = 4;
+        UpdateRadarResponse update_radar_response = 5;
+        UpdateLedsResponse update_leds_response = 6;
+    }
+}

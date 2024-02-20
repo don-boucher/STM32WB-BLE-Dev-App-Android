@@ -24,6 +24,8 @@ import kotlinx.coroutines.channels.Channel
 import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
+import proto.aspinity.ref_public.pb.RefPublic
+import proto.aspinity.ref_public.pb.BoardServiceGrpc
 
 const val ENABLE_BLUETOOTH_REQUEST_CODE = 1
 private const val GATT_MAX_MTU_SIZE = 517
@@ -47,6 +49,7 @@ object BLEManager {
     private var isConnected = false
     var deviceNameFilter = ""
     var deviceRSSIFilter = ""
+    var deviceAddrFilter = "00:80:E1:26:"
 
     // List of BLE Scan Results
     val scanResults = mutableListOf<ScanResult>()
@@ -120,7 +123,8 @@ object BLEManager {
                 // Check if Device Name & RSSI match filters
                 val filterComparison =
                     scanAdapter?.filterCompare(result, deviceNameFilter, "name") == true &&
-                    scanAdapter?.filterCompare(result, deviceRSSIFilter, "rssi") == true
+                    scanAdapter?.filterCompare(result, deviceRSSIFilter, "rssi") == true &&
+                    scanAdapter?.filterCompare(result, deviceAddrFilter, "address") == true
 
                 // Adds scanned device item to Recycler View if not filtered out
                 if (filterComparison) {

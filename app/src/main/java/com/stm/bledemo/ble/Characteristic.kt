@@ -5,6 +5,10 @@ enum class Characteristic (
     val UUID: String,
     val sUUID: String
 ){
+    // Aspinity Proto Service
+    ASP_REQUEST ("ASP Request", "3b5307f3-044d-44e1-a451-ded3e02efa1b", "3b5307f2-044d-44e1-a451-ded3e02efa1b"),
+    ASP_RESPONSE ("ASP Response", "3b5307f4-044d-44e1-a451-ded3e02efa1b", "3b5307f2-044d-44e1-a451-ded3e02efa1b"),
+    ASP_SERVICE_SELECT ("ASP Service Select", "3b5307f5-044d-44e1-a451-ded3e02efa1b", "3b5307f2-044d-44e1-a451-ded3e02efa1b"),
     // Heart Rate Service
     BODYSENLOC ("Body Sensor Location", "00002a38-0000-1000-8000-00805f9b34fb", "0000180d-0000-1000-8000-00805f9b34fb"),
     HRCONTROL ("Heart Rate Control Point", "00002a39-0000-1000-8000-00805f9b34fb", "0000180d-0000-1000-8000-00805f9b34fb"),
@@ -23,6 +27,9 @@ enum class Characteristic (
 
     companion object {
         private val charMap = mapOf(
+            Pair(ASP_REQUEST.UUID, ASP_REQUEST),
+            Pair(ASP_RESPONSE.UUID, ASP_RESPONSE),
+            Pair(ASP_SERVICE_SELECT.UUID, ASP_SERVICE_SELECT),
             Pair(BODYSENLOC.UUID, BODYSENLOC),
             Pair(HRCONTROL.UUID, HRCONTROL),
             Pair(HRMEASURE.UUID, HRMEASURE),

@@ -1,0 +1,2 @@
+asp.ref_public.UpdateSerializedImageRequest.serialized_image              max_size:20000
+asp.ref_public.GetEventLogsResponse.events                                max_count:100
