@@ -6,6 +6,7 @@
     <data />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/scanRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="8dp"
@@ -52,6 +53,16 @@
             app:layout_constraintTop_toBottomOf="@+id/macAddress"
             app:layout_constraintStart_toEndOf="@+id/bluetoothIcon"
             tools:text="-100 dBm" />
+
+        <TextView
+            android:id="@+id/event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="65dp"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/signal_strength"
+            app:layout_constraintStart_toEndOf="@+id/bluetoothIcon"
+            tools:text="Last Event: None" />
 
         <!--<Button
             android:id="@+id/advertisingButton"
